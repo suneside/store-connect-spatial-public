@@ -1,0 +1,7 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {validateStore,worldPoint,planPoint,insidePolygon,fixtureContains} from '../dist/store-schema.js';
+const store={id:'gangnam',name:'강남',widthMm:8000,depthMm:10000,heightMm:3200,originMm:[4000,0],rotationDeg:30,fixtures:[{id:'F01',label:'선반',type:'table',xMm:1000,yMm:5000,widthMm:1200,depthMm:500,heightMm:900,rotationDeg:45,capacity:10}]};
+test('mm world conversion round-trips with an offset origin and rotated floorplan',()=>{for(const pair of [[0,0],[8000,10000],[2350,1250]]){const p=worldPoint(store,...pair),q=planPoint(store,p.x,p.z);assert.ok(Math.abs(q.x-pair[0])<1e-6);assert.ok(Math.abs(q.y-pair[1])<1e-6)}});
+test('store imports reject duplicate fixtures, bad dimensions, unsafe floorplans and foreign display IDs',()=>{assert.equal(validateStore(store).fixtures.length,1);assert.throws(()=>validateStore({...store,widthMm:0}));assert.throws(()=>validateStore({...store,fixtures:[...store.fixtures,...store.fixtures]}));assert.throws(()=>validateStore({...store,planImage:'data:image/svg+xml;base64,AA=='}));assert.throws(()=>validateStore({...store,display:[{fixture:'OTHER',productId:'P',quantity:1}]}))});
+test('rotated fixtures and non-rectangular floor footprints use actual geometry for collision',()=>{const p=worldPoint(store,1600,5250);assert.equal(fixtureContains(store,store.fixtures[0],p.x,p.z),true);assert.equal(insidePolygon(7000,1000,[[0,0],[6000,0],[6000,2500],[8000,2500],[8000,10000],[0,10000]]),false)});
