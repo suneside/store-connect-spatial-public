@@ -3,6 +3,9 @@
 VMD가 매장 공간을 이해하고 진열을 판단하며 현장과 요청·완료 보고·재확인을 이어가는 웹 시제품입니다.
 
 - 실제 해커톤 데모: https://store-connect-spatial.vercel.app (로그인 없이 이용)
+- 소개 페이지에서 91초 실제 서비스 시연 영상을 바로 재생할 수 있습니다. Typecast 필재 내레이션과 HyperFrames 편집을 사용했습니다.
+- 3D 매장 직접 체험: https://store-connect-spatial.vercel.app/experience.html
+- 시연 영상 MP4: https://store-connect-spatial.vercel.app/demo/store-connect-spatial-demo.mp4
 - 공개 소스: https://github.com/suneside/store-connect-spatial-public
 - Three.js / Blender / Node.js / Vercel / Supabase
 - 실제 데모의 사진 기반 상품 생성: Higgsfield / Tripo H3.1
